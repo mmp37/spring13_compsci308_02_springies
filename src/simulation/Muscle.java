@@ -55,12 +55,16 @@ public class Muscle extends Spring {
         double dx = myStart.getX() - myEnd.getX();
         double dy = myStart.getY() - myEnd.getY();
         // apply hooke's law to each attached mass
-        myAngle += elapsedTime*6.24;
+        myAngle += (elapsedTime)*6.24;
+//        if (myAngle>6.28)
+//        	myAngle=0;
        // myAngle = (myAngle/360) - Math.floor((myAngle/360));
-        System.out.println(Math.cos(myAngle));
+        System.out.println(30*Math.sin(myAngle));
+
         Vector force = new Vector(Vector.angleBetween(dx, dy), 
-                                  30*Math.cos(myAngle));
+                                 30*Math.cos(myAngle));
        // myStart.applyForce(force);
+        
         myStart.setForce(force);
         force.negate();
         myEnd.setForce(force);

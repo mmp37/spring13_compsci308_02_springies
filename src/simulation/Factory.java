@@ -57,9 +57,16 @@ public class Factory {
         double x = line.nextDouble();
         double y = line.nextDouble();
         double mass = line.nextDouble();
+        if(mass==-1){
+        	Mass result = new FixedMass(x,y,mass);
+        	myMasses.put(id,  result);
+            return result;
+        }
+        
         Mass result = new Mass(x, y, mass);
         myMasses.put(id,  result);
         return result;
+        
     }
 
     // create spring from formatted data
