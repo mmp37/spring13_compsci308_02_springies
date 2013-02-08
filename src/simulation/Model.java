@@ -19,7 +19,6 @@ public class Model {
     private List<Mass> myMasses;
     private List<Spring> mySprings;
     private List<Muscle> myMuscles;
-    private Environment myEnvironment;
 
     /**
      * Create a game of the given size with the given display for its shapes.

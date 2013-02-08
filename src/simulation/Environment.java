@@ -7,6 +7,10 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.awt.Dimension;
 
+/*
+ * by Matthew Parides
+ */
+
 public class Environment {
 	private double WALL_REPULSION_EXPONENT;
 	private double WALL_REPULSION_MAGNITUDE;
