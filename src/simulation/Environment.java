@@ -18,6 +18,17 @@ public class Environment {
 	private Vector myGravity;
 	private Dimension myDimensions;
 	
+	
+	/**
+	 * constructor sets all constants
+	 * @param gravityAngle
+	 * @param gravityMagnitude
+	 * @param dim
+	 * @param wRE
+	 * @param wRM
+	 * @param cOME
+	 * @param cOMM
+	 */
 	public Environment(double gravityAngle, double gravityMagnitude, 
 			Dimension dim, double wRE, double wRM, double cOME, double cOMM){
 		myGravity = new Vector(gravityAngle, gravityMagnitude);
@@ -26,9 +37,6 @@ public class Environment {
 		WALL_REPULSION_MAGNITUDE = wRM;
 		CENTER_OF_MASS_EXPONENT = cOME;
 		CENTER_OF_MASS_MAGNITUDE = cOMM;
-	}
-	
-	public Environment(){
 	}
 	
 	/**
