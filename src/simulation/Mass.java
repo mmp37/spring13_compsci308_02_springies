@@ -20,7 +20,7 @@ public class Mass extends Sprite {
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;
-    private Vector myAcceleration;
+    protected Vector myAcceleration;
 
 
     /**
@@ -41,7 +41,7 @@ public class Mass extends Sprite {
         // convert force back into Mover's velocity
         getVelocity().sum(myAcceleration);
       //  getVelocity().sum(theEnviroment.calculateNetForce(getX(), getY()));
-        //getVelocity().scale(.99) //for viscoscity 
+        getVelocity().scale(.99); //for viscoscity 
         myAcceleration.reset();
         // move mass by velocity
         super.update(elapsedTime, bounds);
@@ -79,7 +79,7 @@ public class Mass extends Sprite {
 
 
     // check for move out of bounds
-    private Vector getBounce (Dimension bounds) {
+    protected Vector getBounce (Dimension bounds) {
         final double IMPULSE_MAGNITUDE = 2;
         Vector impulse = new Vector();
         if (getLeft() < 0) {
