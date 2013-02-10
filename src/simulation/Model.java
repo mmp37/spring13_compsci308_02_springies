@@ -19,6 +19,7 @@ public class Model {
     private List<Mass> myMasses;
     private List<Spring> mySprings;
     private List<Muscle> myMuscles;
+    private Environment myEnvironment;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -27,6 +28,8 @@ public class Model {
         myView = canvas;
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
+        myEnvironment = new Environment(90, 4, new Dimension(800,600), 0, 3,
+                                        0, 4);
     }
 
     /**
@@ -50,8 +53,10 @@ public class Model {
             s.update(elapsedTime, bounds);
         }
         for (Mass m : myMasses) {
+            m.setEnvironment(myEnvironment);
             m.update(elapsedTime, bounds);
         }
+        myEnvironment.reCalculateCenterOfMass(myMasses);
     }
 
     /**

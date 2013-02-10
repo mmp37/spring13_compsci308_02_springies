@@ -4,7 +4,7 @@ import util.Vector;
 import java.awt.geom.Point2D;
 import java.math.*;
 import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.List;
 import java.awt.Dimension;
 
 /*
@@ -104,7 +104,7 @@ public class Environment {
 	 * Use the masses in this system to calculate the center of mass.
 	 * @param masses
 	 */
-	protected void reCalculateCenterOfMass(ArrayList<Mass> masses){
+	protected void reCalculateCenterOfMass(List<Mass> masses){
 		double tempX = 0;
 		double tempY = 0;
 		Iterator<Mass> iter = masses.iterator();
@@ -142,6 +142,10 @@ public class Environment {
 		
 		return totalVector;
 		}
+	
+	public Dimension getDimensions(){
+	    return myDimensions;
+	}
 	
 	
 	

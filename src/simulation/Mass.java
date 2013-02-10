@@ -7,6 +7,7 @@ import util.Location;
 import util.Pixmap;
 import util.Sprite;
 import util.Vector;
+import simulation.Environment;
 
 
 /**
@@ -21,6 +22,7 @@ public class Mass extends Sprite {
 
     private double myMass;
     protected Vector myAcceleration;
+    private Environment myEnvironment;
 
 
     /**
@@ -30,6 +32,8 @@ public class Mass extends Sprite {
         super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
         myMass = mass;
         myAcceleration = new Vector();
+        myEnvironment = new Environment(90, 4, new Dimension(800,600), 0, 3,
+                                        0, 4);
     }
 
     /**
@@ -39,12 +43,19 @@ public class Mass extends Sprite {
     public void update (double elapsedTime, Dimension bounds) {
         applyForce(getBounce(bounds));
         // convert force back into Mover's velocity
+        Vector enviroForces = myEnvironment.calculateNetForce(getX(),getY());
+        myAcceleration.sum(enviroForces);
         getVelocity().sum(myAcceleration);
+        getVelocity().sum(getBounce(myEnvironment.getDimensions()));
       //  getVelocity().sum(theEnviroment.calculateNetForce(getX(), getY()));
         getVelocity().scale(.99); //for viscoscity 
         myAcceleration.reset();
         // move mass by velocity
         super.update(elapsedTime, bounds);
+    }
+    
+    public void setEnvironment(Environment enviro){
+        myEnvironment = enviro;
     }
 
     /**
