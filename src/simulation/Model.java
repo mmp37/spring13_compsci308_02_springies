@@ -1,6 +1,6 @@
 package simulation;
 
-import java.awt.Dimension; 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,7 +19,9 @@ public class Model {
     private List<Mass> myMasses;
     private List<Spring> mySprings;
     private List<Muscle> myMuscles;
-    private Environment myEnvironment;
+    private List<Force> myForces;
+    private Dragging myDrag;
+    private List<Listener> myListeners;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -28,8 +30,17 @@ public class Model {
         myView = canvas;
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
-        myEnvironment = new Environment(90, 4, new Dimension(800,600), 0, 3,
-                                        0, 4);
+        myForces = new ArrayList<Force>();
+        add(new GravityForce());
+        add(new ViscosityForce());
+       
+        
+        myListeners = new ArrayList<Listener>();
+        myListeners.add(new GravityListener(myView));
+        myListeners.add(new ViscosityListener(myView));
+        
+        
+        myDrag = new Dragging();
     }
 
     /**
@@ -49,14 +60,24 @@ public class Model {
      */
     public void update (double elapsedTime) {
         Dimension bounds = myView.getSize();
+        
+        for (Listener l : myListeners) {
+        	l.update(myForces);
+        }
+        
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);
         }
+        
+        for (Force f : myForces) {
+        	f.applyForce(myMasses);
+        }
+        
         for (Mass m : myMasses) {
-            m.setEnvironment(myEnvironment);
             m.update(elapsedTime, bounds);
         }
-        myEnvironment.reCalculateCenterOfMass(myMasses);
+        myDrag.update(myMasses, mySprings, myView);
+       
     }
 
     /**
@@ -64,7 +85,6 @@ public class Model {
      */
     public void add (Mass mass) {
         myMasses.add(mass);
-        //allmasses.add(mass)
     }
 
     /**
@@ -72,6 +92,10 @@ public class Model {
      */
     public void add (Spring spring) {
         mySprings.add(spring);
+    }
+    
+    public void add (Force force){
+    	myForces.add(force);
     }
    
 }

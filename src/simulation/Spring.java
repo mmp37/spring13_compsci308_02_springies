@@ -35,7 +35,6 @@ public class Spring extends Sprite {
         myK = kVal;
     }
 
-
     /**
      * XXX.
      */
