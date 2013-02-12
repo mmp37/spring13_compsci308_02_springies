@@ -6,14 +6,15 @@ import util.Vector;
 
 public class ViscosityForce extends Force{
 	private double myFactor = 0.9;
+	private static final int VISCOSITY_KEY_VAL = 86;
 	
 	
 	public ViscosityForce(){
-		super(86);
+		super(VISCOSITY_KEY_VAL);
 	}
 	
 	public ViscosityForce(int scalingFactor){
-		super(86);
+		super(VISCOSITY_KEY_VAL);
 		myFactor = scalingFactor;
 	}
 	

@@ -43,13 +43,13 @@ public class Dragging  {
 		}
 		view.setLastClickHeuristic(false);
 		
-		Point myLocation = view.getLastMousePosition();
+		Point thisLoc = view.getLastMousePosition();
 		Mass closest = null;
 		double minDistance = 100000;
 		
 		for (Mass m : masses){
 			
-			double distance = myLocation.distance(m.getPoint());
+			double distance = thisLoc.distance(m.getPoint());
 			
 			if ( distance <= minDistance ){
 				closest = m;
@@ -58,7 +58,7 @@ public class Dragging  {
 			
 		}
 		
-		Mass dMass = new DragMass(myLocation.getX(), myLocation.getY(), 100, view);
+		Mass dMass = new DragMass(thisLoc.getX(), thisLoc.getY(), 100, view);
 		
 		Spring dSpring = new DragSpring(closest, dMass, minDistance, 100);
 		

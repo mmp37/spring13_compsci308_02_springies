@@ -2,20 +2,22 @@ package simulation;
 
 
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.List;
 
 import util.Vector;
 
 public class CenterOfMassForce extends Force{
 	private double myPower=2;
+	private static final int MASS_KEY_VAL = 77;
 	
 	
 	public CenterOfMassForce(){
-		super(77);
+		super(MASS_KEY_VAL);
 	}
 	
 	public CenterOfMassForce(double power){
-		super(77);
+		super(MASS_KEY_VAL);
 		myPower = power;
 	}
 	
@@ -44,7 +46,7 @@ public class CenterOfMassForce extends Force{
 		center.setLocation(centerX, centerY);
 		
 		for (Mass mass : masses){
-			Point massPt = mass.getPoint();
+			Point2D massPt = mass.getPoint();
 			double dist = massPt.distance(center);
 			
 			Vector force = new Vector(massPt, center);

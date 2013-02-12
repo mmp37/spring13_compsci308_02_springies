@@ -37,7 +37,7 @@ public class Canvas extends JComponent {
     // default serialization ID
     private static final long serialVersionUID = 1L;
     // animate 25 times per second if possible
-    public static final int FRAMES_PER_SECOND = 25;
+    public static final int FRAMES_PER_SECOND = 45;
     // better way to think about timed events (in milliseconds)
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
@@ -55,6 +55,8 @@ public class Canvas extends JComponent {
     // input state
     private int myLastKeyPressed;
     private Point myLastMousePosition;
+    private boolean myLastClickHeuristic=false;
+    private boolean myLastKeyHeuristic = false;
     private Set<Integer> myKeys;
 
 
@@ -110,6 +112,24 @@ public class Canvas extends JComponent {
     public Point getLastMousePosition () {
         return myLastMousePosition;
     }
+    
+    public boolean getLastClickHeuristic(){
+    	return myLastClickHeuristic;
+    }
+    
+    
+    public void setLastClickHeuristic(boolean in){
+    	myLastClickHeuristic=in;
+    }
+    
+    public boolean getLastKeyHeuristic(){
+    	return myLastKeyHeuristic;
+    }
+    
+    
+    public void setLastKeyHeuristic(boolean in){
+    	myLastKeyHeuristic=in;
+    }
 
     /**
      * Start the animation.
@@ -156,6 +176,8 @@ public class Canvas extends JComponent {
             public void keyPressed (KeyEvent e) {
                 myLastKeyPressed = e.getKeyCode();
                 myKeys.add(e.getKeyCode());
+                myLastKeyHeuristic = true;
+                System.out.println(e.getKeyCode());
             }
             @Override
             public void keyReleased (KeyEvent e) {
@@ -174,8 +196,11 @@ public class Canvas extends JComponent {
             @Override
             public void mousePressed (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
+                myLastClickHeuristic = true;
+                
+                
             }
-
+            
             @Override
             public void mouseReleased (MouseEvent e) {
                 myLastMousePosition = NO_MOUSE_PRESSED;

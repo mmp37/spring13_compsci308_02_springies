@@ -3,6 +3,7 @@ package simulation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.awt.Point;
 
 import util.Location;
@@ -49,6 +50,11 @@ public class Mass extends Sprite {
     
     public double getMass(){
     	return myMass;
+    }
+    
+    
+    public Point2D getPoint(){
+        return new Point2D.Double(getX(),getY());
     }
  
 

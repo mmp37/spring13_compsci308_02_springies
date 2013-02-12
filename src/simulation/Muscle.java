@@ -75,7 +75,7 @@ public class Muscle extends Spring {
     }
 
     /**
-     * Convenience method.
+     * returns the color of this muscle
      */
     protected Color getColor (double diff) {
         if (Vector.fuzzyEquals(diff, 0)) return Color.BLACK;
