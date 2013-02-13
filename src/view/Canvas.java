@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -26,9 +26,9 @@ import simulation.Model;
 /**
  * Creates an area of the screen in which the game will be drawn that supports:
  * <UL>
- *   <LI>animation via the Timer
- *   <LI>mouse input via the MouseListener and MouseMotionListener
- *   <LI>keyboard input via the KeyListener
+ * <LI>animation via the Timer
+ * <LI>mouse input via the MouseListener and MouseMotionListener
+ * <LI>keyboard input via the KeyListener
  * </UL>
  * 
  * @author Robert C Duvall
@@ -42,7 +42,7 @@ public class Canvas extends JComponent {
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
     // only one so that it maintains user's preferences
-    private static final JFileChooser INPUT_CHOOSER = 
+    private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
     // input state
     public static final int NO_KEY_PRESSED = -1;
@@ -55,10 +55,9 @@ public class Canvas extends JComponent {
     // input state
     private int myLastKeyPressed;
     private Point myLastMousePosition;
-    private boolean myLastClickHeuristic=false;
+    private boolean myLastClickHeuristic = false;
     private boolean myLastKeyHeuristic = false;
     private Set<Integer> myKeys;
-
 
     /**
      * Create a panel so that it knows its size
@@ -112,23 +111,21 @@ public class Canvas extends JComponent {
     public Point getLastMousePosition () {
         return myLastMousePosition;
     }
-    
-    public boolean getLastClickHeuristic(){
-    	return myLastClickHeuristic;
+
+    public boolean getLastClickHeuristic () {
+        return myLastClickHeuristic;
     }
-    
-    
-    public void setLastClickHeuristic(boolean in){
-    	myLastClickHeuristic=in;
+
+    public void setLastClickHeuristic (boolean in) {
+        myLastClickHeuristic = in;
     }
-    
-    public boolean getLastKeyHeuristic(){
-    	return myLastKeyHeuristic;
+
+    public boolean getLastKeyHeuristic () {
+        return myLastKeyHeuristic;
     }
-    
-    
-    public void setLastKeyHeuristic(boolean in){
-    	myLastKeyHeuristic=in;
+
+    public void setLastKeyHeuristic (boolean in) {
+        myLastKeyHeuristic = in;
     }
 
     /**
@@ -136,12 +133,13 @@ public class Canvas extends JComponent {
      */
     public void start () {
         // create a timer to animate the canvas
-        myTimer = new Timer(DEFAULT_DELAY, 
-            new ActionListener() {
-                public void actionPerformed (ActionEvent e) {
-                    step();
-                }
-            });
+        myTimer = new Timer(DEFAULT_DELAY,
+                            new ActionListener() {
+                                @Override
+                                public void actionPerformed (ActionEvent e) {
+                                    step();
+                                }
+                            });
         // start animation
         mySimulation = new Model(this);
         loadModel();
@@ -159,7 +157,7 @@ public class Canvas extends JComponent {
      * Take one step in the animation.
      */
     public void step () {
-        mySimulation.update((double)FRAMES_PER_SECOND / ONE_SECOND);
+        mySimulation.update((double) FRAMES_PER_SECOND / ONE_SECOND);
         // indirectly causes paint to be called
         repaint();
     }
@@ -179,10 +177,11 @@ public class Canvas extends JComponent {
                 myLastKeyHeuristic = true;
                 System.out.println(e.getKeyCode());
             }
+
             @Override
             public void keyReleased (KeyEvent e) {
                 myLastKeyPressed = NO_KEY_PRESSED;
-                myKeys.remove((Integer)e.getKeyCode());
+                myKeys.remove(e.getKeyCode());
             }
         });
         myLastMousePosition = NO_MOUSE_PRESSED;
@@ -197,10 +196,9 @@ public class Canvas extends JComponent {
             public void mousePressed (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
                 myLastClickHeuristic = true;
-                
-                
+
             }
-            
+
             @Override
             public void mouseReleased (MouseEvent e) {
                 myLastMousePosition = NO_MOUSE_PRESSED;

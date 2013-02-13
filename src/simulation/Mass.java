@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.Point;
-
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -17,15 +15,20 @@ import util.Vector;
  * 
  * @author Robert C. Duvall
  */
-public class Mass extends Sprite {    
-    // reasonable default values
+public class Mass extends Sprite {
+    
+    /**
+     * default sprite size
+     */
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
+    /**
+     * default mass image
+     */
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;
     protected Vector myAcceleration;
 
-  
     /**
      * XXX.
      */
@@ -47,16 +50,14 @@ public class Mass extends Sprite {
         // move mass by velocity
         super.update(elapsedTime, bounds);
     }
-    
-    public double getMass(){
-    	return myMass;
+
+    public double getMass () {
+        return myMass;
     }
-    
-    
-    public Point2D getPoint(){
-        return new Point2D.Double(getX(),getY());
+
+    public Point2D getPoint () {
+        return new Point2D.Double(getX(), getY());
     }
- 
 
     /**
      * XXX.
@@ -64,20 +65,20 @@ public class Mass extends Sprite {
     @Override
     public void paint (Graphics2D pen) {
         pen.setColor(Color.BLACK);
-        pen.fillOval((int)getLeft(), (int)getTop(), (int)getWidth(), (int)getHeight());
+        pen.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }
 
     /**
      * Use the given force to change this mass's acceleration.
      */
     public void applyAccelerationVector (Vector force) {
-    	force.scale(1/myMass);
+        force.scale(1 / myMass);
         myAcceleration.sum(force);
     }
-    
-    public void setForce (Vector force){
-    	myAcceleration = new Vector(force); 
-    	
+
+    public void setForce (Vector force) {
+        myAcceleration = new Vector(force);
+
     }
 
     /**
@@ -87,7 +88,6 @@ public class Mass extends Sprite {
         // this is a little awkward, so hide it
         return new Location(getX(), getY()).distance(new Location(other.getX(), other.getY()));
     }
-
 
     // check for move out of bounds
     protected Vector getBounce (Dimension bounds) {

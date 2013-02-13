@@ -2,8 +2,8 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import view.Canvas;
 
 
@@ -34,13 +34,11 @@ public class Model {
         add(new GravityForce());
         add(new ViscosityForce());
         add(new WallRepulsionForce(myView));
-       
-        
+
         myListeners = new ArrayList<Listener>();
-        myListeners.add(new ForceListener(myView, ForceListener.GRAVITY_KEY_VAL));
-        myListeners.add(new ForceListener(myView, ForceListener.VISCOSITY_KEY_VAL));
-        
-        
+        myListeners.add(new Listener(myView, Listener.GRAVITY_KEY_VAL));
+        myListeners.add(new Listener(myView, Listener.VISCOSITY_KEY_VAL));
+
         myDrag = new Dragging();
     }
 
@@ -61,28 +59,29 @@ public class Model {
      */
     public void update (double elapsedTime) {
         Dimension bounds = myView.getSize();
-        
+
         for (Listener l : myListeners) {
-        	l.update(myForces);
+            l.update(myForces);
         }
-        
+
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);
         }
-        
+
         for (Force f : myForces) {
-        	f.applyForce(myMasses);
+            f.applyForce(myMasses);
         }
-        
+
         for (Mass m : myMasses) {
             m.update(elapsedTime, bounds);
         }
         myDrag.update(myMasses, mySprings, myView);
-       
+
     }
 
     /**
      * Add given mass to this simulation.
+     * @param mass input mass object
      */
     public void add (Mass mass) {
         myMasses.add(mass);
@@ -94,9 +93,9 @@ public class Model {
     public void add (Spring spring) {
         mySprings.add(spring);
     }
-    
-    public void add (Force force){
-    	myForces.add(force);
+
+    public void add (Force force) {
+        myForces.add(force);
     }
-   
+
 }

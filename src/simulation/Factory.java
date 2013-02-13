@@ -21,7 +21,6 @@ public class Factory {
     // mass IDs
     Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
-
     /**
      * XXX.
      */
@@ -39,7 +38,7 @@ public class Factory {
                         model.add(springCommand(line));
                     }
                     else if (MUSCLE_KEYWORD.equals(type)) {
-                    	model.add(muscleCommand(line));
+                        model.add(muscleCommand(line));
                     }
                 }
             }
@@ -57,16 +56,16 @@ public class Factory {
         double x = line.nextDouble();
         double y = line.nextDouble();
         double mass = line.nextDouble();
-        if(mass==-1){
-        	Mass result = new FixedMass(x,y,mass);
-        	myMasses.put(id,  result);
+        if (mass == -1) {
+            Mass result = new FixedMass(x, y, mass);
+            myMasses.put(id, result);
             return result;
         }
-        
+
         Mass result = new Mass(x, y, mass);
-        myMasses.put(id,  result);
+        myMasses.put(id, result);
         return result;
-        
+
     }
 
     // create spring from formatted data
@@ -77,7 +76,8 @@ public class Factory {
         double ks = line.nextDouble();
         return new Spring(m1, m2, restLength, ks);
     }
- // create spring from formatted data
+
+    // create spring from formatted data
     private Muscle muscleCommand (Scanner line) {
         Mass m1 = myMasses.get(line.nextInt());
         Mass m2 = myMasses.get(line.nextInt());
@@ -85,5 +85,5 @@ public class Factory {
         double ks = line.nextDouble();
         return new Muscle(m1, m2, restLength, ks);
     }
-    
+
 }
