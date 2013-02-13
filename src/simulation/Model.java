@@ -33,11 +33,12 @@ public class Model {
         myForces = new ArrayList<Force>();
         add(new GravityForce());
         add(new ViscosityForce());
+        add(new WallRepulsionForce(myView));
        
         
         myListeners = new ArrayList<Listener>();
-        myListeners.add(new GravityListener(myView));
-        myListeners.add(new ViscosityListener(myView));
+        myListeners.add(new ForceListener(myView, ForceListener.GRAVITY_KEY_VAL));
+        myListeners.add(new ForceListener(myView, ForceListener.VISCOSITY_KEY_VAL));
         
         
         myDrag = new Dragging();

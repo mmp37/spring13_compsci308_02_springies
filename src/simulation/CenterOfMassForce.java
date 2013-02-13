@@ -11,11 +11,17 @@ public class CenterOfMassForce extends Force{
 	private double myPower=2;
 	private static final int MASS_KEY_VAL = 77;
 	
-	
+	/**
+	 * constructor
+	 */
 	public CenterOfMassForce(){
 		super(MASS_KEY_VAL);
 	}
 	
+	/**
+	 * constructor
+	 * @param power
+	 */
 	public CenterOfMassForce(double power){
 		super(MASS_KEY_VAL);
 		myPower = power;
@@ -49,10 +55,10 @@ public class CenterOfMassForce extends Force{
 			Point2D massPt = mass.getPoint();
 			double dist = massPt.distance(center);
 			
-			Vector force = new Vector(massPt, center);
+			Vector force = new Vector(massPt,center);
 			force.scale(1/Math.pow(dist, myPower));
 			
-			mass.applyForce(force);
+			mass.applyAccelerationVector(force);
 			
 		}
 		

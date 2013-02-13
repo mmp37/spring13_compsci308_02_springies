@@ -14,7 +14,7 @@ public class FixedMass extends Mass {
 	 
 	  @Override
 	 public void update (double elapsedTime, Dimension bounds) {
-	        applyForce(getBounce(bounds));
+	        applyAccelerationVector(getBounce(bounds));
 	        // convert force back into Mover's velocity
 	        getVelocity().sum(myAcceleration);
 	        myAcceleration.reset();

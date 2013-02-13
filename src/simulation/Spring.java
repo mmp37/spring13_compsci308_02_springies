@@ -54,9 +54,9 @@ public class Spring extends Sprite {
         // apply hooke's law to each attached mass
         Vector force = new Vector(Vector.angleBetween(dx, dy), 
                                   myK * (myLength - Vector.distanceBetween(dx, dy)));
-        myStart.applyForce(force);
+        myStart.applyAccelerationVector(force);
         force.negate();
-        myEnd.applyForce(force);
+        myEnd.applyAccelerationVector(force);
         // update sprite values based on attached masses
         setCenter(getCenter(myStart, myEnd));
         setSize(getSize(myStart, myEnd));

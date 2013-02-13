@@ -27,7 +27,7 @@ public class GravityForce extends Force {
 		if (!getState())
 			return;
 		for (Mass mass : masses) {
-			mass.applyForce(new Vector(myAngle, myMagnitude));
+			mass.applyAccelerationVector(new Vector(myAngle, myMagnitude));
 		}
 
 	}
