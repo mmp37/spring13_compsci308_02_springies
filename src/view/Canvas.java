@@ -61,6 +61,7 @@ public class Canvas extends JComponent {
 
     /**
      * Create a panel so that it knows its size
+     * @param size - dimensions of view
      */
     public Canvas (Dimension size) {
         // set size (a bit of a pain)
@@ -208,7 +209,7 @@ public class Canvas extends JComponent {
 
     // load model from file chosen by user
     private void loadModel () {
-        Factory factory = new Factory();
+        Factory factory = new Factory(this);
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
             factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());

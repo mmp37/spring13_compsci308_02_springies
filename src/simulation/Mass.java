@@ -24,7 +24,7 @@ public class Mass extends Sprite {
     /**
      * default mass image
      */
-    public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
+    public static final Pixmap DEFAULT_IMAGE = new Pixmap("mass.gif");
     
     protected Vector myVelocity;
     private double myMass;
@@ -37,7 +37,7 @@ public class Mass extends Sprite {
      * @param mass - mass magnitude
      */
     public Mass (double x, double y, double mass) {
-        super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
+        super(DEFAULT_IMAGE, new Location(x, y), DEFAULT_SIZE);
         myMass = mass;
         myVelocity = new Vector();
     }

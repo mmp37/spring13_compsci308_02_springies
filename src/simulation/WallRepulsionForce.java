@@ -11,75 +11,101 @@ import view.Canvas;
  *
  */
 public class WallRepulsionForce extends Force {
+    private static final int TOP_WALL = 1;
+    private static final int RIGHT_WALL = 2;
+    private static final int BOTTOM_WALL = 3;
+    private static final int LEFT_WALL = 4;
+    private static final int RIGHT_ANGLE = 90;
     private double myPower = 2;
     private double myMagnitude = 1;
-    private Canvas myCanvas;
-    private int myHeight;
-    private int myWidth;
+    private double myWidth;
+    private double myHeight;
+    private int myRepulsionAngle;
+    private int mySide;
+    
 
     /**
      * default constructor
-     * @param canv - the canvas that these wall repulsion forces will be 
-     * represented in.
+     * @param height - the height of the environment that this force is applied
+     * in
+     * @param width - the width of the environment that this force is applied in
      */
-    public WallRepulsionForce (Canvas canv) {
+    public WallRepulsionForce (double width, double height) {
         super();
-        myCanvas = canv;
-        myHeight = myCanvas.getHeight();
-        myWidth = myCanvas.getWidth();
+        myWidth = width;
+        myHeight = height;
+        
     }
 
     /**
      * constructor
      * 
-     * @param power
+     * @param power - exponent of the force
+     * @param mag - magnitude of the force
+     * @param canv - the canvas that this force is applied in
+     * @param side - the side of the canvas that this force corresponds to.
      */
-    public WallRepulsionForce (double power, double mag, Canvas canv) {
-        this(canv);
+    public WallRepulsionForce (double power, double mag, double width
+                               , double height, int side) {
+        this(width, height);
         myPower = power;
         myMagnitude = mag;
+        mySide = side;
+        myRepulsionAngle = side * RIGHT_ANGLE;
+        
+        
     }
+    
+    
+    
+    /**
+     * gets the distance between this repulsion force's wall and the input mass
+     * @param mass - mass to find the distance to
+     * @return dist - distance to mass
+     */
+    public double getDistance(Mass mass) {
+        double dist = 0;
+        if (mySide == TOP_WALL) {
+            dist = mass.getY();
+        }
+        
+        else if (mySide == RIGHT_WALL) {
+            dist = mass.getX();
+        }
+        
+        else if (mySide == BOTTOM_WALL) {
+            dist = mass.getY() - myHeight;
+        }
+        
+        else if (mySide == LEFT_WALL) {
+            dist = mass.getX() - myWidth;
+        }
+        return dist;
+    }
+    
+    
 
     /**
      * calculate the wall repulsion vector from an angle and distance.
      * 
-     * @param angle - angle of the wall repulsion force
      * @param distance - distance between the wall and the object
      * @return Vector
      */
-    public Vector calculateWallRepulsionForce (double angle, double distance) {
-        return new Vector(angle, myMagnitude
+    public Vector calculateWallRepulsionForce (double distance) {
+        return new Vector(myRepulsionAngle, myMagnitude
                                  / Math.pow(distance, myPower));
     }
-/*
-    /**
-     * calculate the total wall repulsion force on a location in the system.
-     * 
-     * @param vec
-     * @param xCoord - x coordinate
-     * @param yCoord - coordinate
-     * @return Vector vec
-     *
-    public Vector calculateTotalWallRepulsion (double xCoord, double yCoord) {
-        Vector vec = new Vector();
-        double xDimension = myWidth;
-        double yDimension = myHeight;
-        vec.sum(calculateWallRepulsionForce(0, xDimension - xCoord));
-        vec.sum(calculateWallRepulsionForce(90, yDimension - yCoord));
-        vec.sum(calculateWallRepulsionForce(180, xCoord));
-        vec.sum(calculateWallRepulsionForce(270, yCoord));
-        return vec;
-    }
-*/
+
     /**
      * this method is for resetting the size of the environment for calculation.
      * Used when canvas is resized
      * 
-     * @param canv - set the width and height of the canvas environment
+     * @param width - the new width of the environment
+     * @param height - the new height of the environment
      */
-    public void setWidthAndHeight (Canvas canv) {
-        myHeight = canv.getHeight();
-        myWidth = canv.getWidth();
+    public void setWidthAndHeight (double width, double height) {
+        myHeight = height;
+        myWidth = width;
     }
 
     /**
@@ -93,9 +119,8 @@ public class WallRepulsionForce extends Force {
             return;
         }
         for (Mass mass : masses) {
-
-            Vector force = calculateTotalWallRepulsion(
-                                                       mass.getX(), mass.getY());
+            double distance = getDistance(mass);
+            Vector force = calculateWallRepulsionForce(distance);
 
             mass.applyAccelerationVector(force);
 

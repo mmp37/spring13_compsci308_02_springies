@@ -1,10 +1,11 @@
 package simulation;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import view.Canvas;
 
 
 /**
@@ -17,7 +18,17 @@ public class Factory {
     private static final String MASS_KEYWORD = "mass";
     private static final String SPRING_KEYWORD = "spring";
     private static final String MUSCLE_KEYWORD = "muscle";
+    private static final String GRAVITY_KEYWORD = "gravity";
+    private static final String VISCOSITY_KEYWORD = "viscosity";
+    private static final String CENTER_MASS_KEYWORD = "centermass";
+    private static final String WALL_REPULSION_KEYWORD = "wall";
+    private Canvas myCanvas;
 
+    
+    public Factory(Canvas canv){
+        myCanvas = canv;
+    }
+    
     // mass IDs
     private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
@@ -43,6 +54,18 @@ public class Factory {
                     }
                     else if (MUSCLE_KEYWORD.equals(type)) {
                         model.add(muscleCommand(line));
+                    }
+                    else if (GRAVITY_KEYWORD.equals(type)) {
+                        model.add(gravityCommand(line));
+                    }
+                    else if (VISCOSITY_KEYWORD.equals(type)) {
+                        model.add(viscosityCommand(line));
+                    }
+                    else if (CENTER_MASS_KEYWORD.equals(type)) {
+                        model.add(centerMassCommand(line));
+                    }
+                    else if (WALL_REPULSION_KEYWORD.equals(type)) {
+                        model.add(wallCommand(line));
                     }
                 }
             }
@@ -88,6 +111,35 @@ public class Factory {
         double restLength = line.nextDouble();
         double ks = line.nextDouble();
         return new Muscle(m1, m2, restLength, ks);
+    }
+    
+ // create spring from formatted data
+    private GravityForce gravityCommand (Scanner line) {
+        double angle = line.nextDouble();
+        double magnitude = line.nextDouble();
+        return new GravityForce(angle, magnitude);
+    }
+    
+ // create spring from formatted data
+    private ViscosityForce viscosityCommand (Scanner line) {
+        double scaleFactor = line.nextDouble();
+        return new ViscosityForce(scaleFactor);
+    }
+    
+ // create spring from formatted data
+    private CenterOfMassForce centerMassCommand (Scanner line) {
+        double magnitude = line.nextDouble();
+        double exp = line.nextDouble();
+        return new CenterOfMassForce(magnitude, exp);
+    }
+    
+ // create spring from formatted data
+    private WallRepulsionForce wallCommand(Scanner line) {
+        int side = line.nextInt();
+        double magnitude = line.nextDouble();
+        double exp = line.nextDouble();
+        return new WallRepulsionForce(exp, magnitude, myCanvas.getWidth(),
+                                      myCanvas.getHeight(), side);
     }
 
 }

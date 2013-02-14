@@ -17,6 +17,7 @@ public class CenterOfMassForce extends Force {
     private static final int MASS_KEY_VAL = KeyEvent.VK_M;
     
     private double myPower = 2;
+    private double myMagnitude = 2;
     
 
     /**
@@ -29,11 +30,13 @@ public class CenterOfMassForce extends Force {
     /**
      * constructor
      * 
+     * @param mag - magnitude of this force
      * @param power - exponent value of center of mass force
      */
-    public CenterOfMassForce (double power) {
+    public CenterOfMassForce (double mag, double power) {
         super(MASS_KEY_VAL);
         myPower = power;
+        myMagnitude = mag;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class CenterOfMassForce extends Force {
         double centerX = 0;
         double centerY = 0;
         double allMass = 0;
-
+        
         for (Mass mass : masses) {
             double myMass = mass.getMass();
             allMass += myMass;
@@ -64,7 +67,7 @@ public class CenterOfMassForce extends Force {
             double dist = massPt.distance(center);
 
             Vector force = new Vector(massPt, center);
-            force.scale(1 / Math.pow(dist, myPower));
+            force.scale(myMagnitude / Math.pow(dist, myPower));
 
             mass.applyAccelerationVector(force);
 

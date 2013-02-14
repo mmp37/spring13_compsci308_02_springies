@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 import util.Vector;
 
@@ -9,8 +10,8 @@ import util.Vector;
  *
  */
 public class ViscosityForce extends Force {
-    private static final int VISCOSITY_KEY_VAL = 86;
-    private double myFactor = 0.9;
+    private static final int VISCOSITY_KEY_VAL = KeyEvent.VK_V;
+    private double myFactor = .9;
     
     /**
      * default constructor
@@ -23,7 +24,7 @@ public class ViscosityForce extends Force {
      * constructor
      * @param scalingFactor - the size of the scaling factor of viscosity
      */
-    public ViscosityForce (int scalingFactor) {
+    public ViscosityForce (double scalingFactor) {
         super(VISCOSITY_KEY_VAL);
         myFactor = scalingFactor;
     }
