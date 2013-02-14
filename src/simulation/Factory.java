@@ -19,10 +19,14 @@ public class Factory {
     private static final String MUSCLE_KEYWORD = "muscle";
 
     // mass IDs
-    Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
+    private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
     /**
-     * XXX.
+     * Reads the input file and loads the model appropriately with masses, springs,
+     * and muscles.
+     * @param model - the model that information will be loaded to
+     * @param modelFile - the file that contains the information that will load
+     * the model
      */
     public void loadModel (Model model, File modelFile) {
         try {

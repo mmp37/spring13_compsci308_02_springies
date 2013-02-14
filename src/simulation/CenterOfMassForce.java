@@ -1,14 +1,23 @@
 package simulation;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.util.List;
 import util.Vector;
 
-
+/**
+ * CenterOfMassForce class contains methods for construction and calculating
+ *  and applying a center of mass force to masses.
+ * @author Matthew Parides & Aaron Krolik
+ *
+ */
 public class CenterOfMassForce extends Force {
+    
+    private static final int MASS_KEY_VAL = KeyEvent.VK_M;
+    
     private double myPower = 2;
-    private static final int MASS_KEY_VAL = 77;
+    
 
     /**
      * constructor
@@ -20,7 +29,7 @@ public class CenterOfMassForce extends Force {
     /**
      * constructor
      * 
-     * @param power
+     * @param power - exponent value of center of mass force
      */
     public CenterOfMassForce (double power) {
         super(MASS_KEY_VAL);
@@ -30,9 +39,9 @@ public class CenterOfMassForce extends Force {
     @Override
     public void applyForce (List<Mass> masses) {
 
-        if (!isOn())
+        if (!isOn()) {
             return;
-
+        }
         double centerX = 0;
         double centerY = 0;
         double allMass = 0;

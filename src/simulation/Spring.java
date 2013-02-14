@@ -25,7 +25,11 @@ public class Spring extends Sprite {
     private double myK;
 
     /**
-     * XXX.
+     * Constructor
+     * @param start - mass at "start" end of the spring
+     * @param end - mass at "end" end of the spring
+     * @param length - length of this string
+     * @param kVal - spring constant
      */
     public Spring (Mass start, Mass end, double length, double kVal) {
         super(DEFUALT_IMAGE, getCenter(start, end), getSize(start, end));
@@ -36,7 +40,7 @@ public class Spring extends Sprite {
     }
 
     /**
-     * XXX.
+     * @param pen - Graphics2D pen used for painting
      */
     @Override
     public void paint (Graphics2D pen) {
@@ -46,7 +50,8 @@ public class Spring extends Sprite {
     }
 
     /**
-     * XXX.
+     * @param elapsedTime - time since last update
+     * @param bounds - bounds of this environment.
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
@@ -68,11 +73,15 @@ public class Spring extends Sprite {
      * Convenience method.
      */
     protected Color getColor (double diff) {
-        if (Vector.fuzzyEquals(diff, 0))
+        if (Vector.fuzzyEquals(diff, 0)) {
             return Color.BLACK;
-        else if (diff < 0.0)
+        }
+        else if (diff < 0.0) {
             return Color.BLUE;
-        else return Color.RED;
+        }
+        else {
+            return Color.RED;
+        }
     }
 
     // compute center of this spring

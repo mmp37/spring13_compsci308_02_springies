@@ -5,9 +5,21 @@ import java.util.Iterator;
 import java.util.List;
 import view.Canvas;
 
-
+/**
+ * Class to handle the "drag" function. controls the mouse click and drag that
+ * creates a mass and spring, and drags the assembly.
+ * @author Aaron Krolik
+ *
+ */
 public class Dragging {
 
+    
+    /**
+     * updates the current state of the click and drag spring and mass.
+     * @param masses - connected masses in assembly
+     * @param springs - connected springs in assembly
+     * @param view - the canvas that contains this assembly.
+     */
     public void update (List<Mass> masses, List<Spring> springs, Canvas view) {
 
         if (view.getLastMousePosition() == Canvas.NO_MOUSE_PRESSED) {
@@ -34,7 +46,9 @@ public class Dragging {
 
         }
 
-        if (!view.getLastClickHeuristic()) return;
+        if (!view.getLastClickHeuristic()) {
+            return;
+        }
         view.setLastClickHeuristic(false);
 
         Point thisLoc = view.getLastMousePosition();

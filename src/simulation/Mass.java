@@ -25,42 +25,57 @@ public class Mass extends Sprite {
      * default mass image
      */
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
-
+    
+    protected Vector myVelocity;
     private double myMass;
-    protected Vector myAcceleration;
+    
 
     /**
-     * XXX.
+     * Constructor with coordinates and mass magnitude inputs
+     * @param x - x coordinate
+     * @param y - y coordinate
+     * @param mass - mass magnitude
      */
     public Mass (double x, double y, double mass) {
         super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
         myMass = mass;
-        myAcceleration = new Vector();
+        myVelocity = new Vector();
     }
 
     /**
-     * XXX.
+     * @param elapsedTime - time since last update
+     * @param bounds - Dimensions of this simulation's environment.
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
         applyAccelerationVector(getBounce(bounds));
         // convert force back into Mover's velocity
-        getVelocity().sum(myAcceleration);
-        myAcceleration.reset();
+        getVelocity().sum(myVelocity);
+        myVelocity.reset();
         // move mass by velocity
         super.update(elapsedTime, bounds);
     }
-
+    
+    /**
+     * returns this mass's mass
+     * @return myMass
+     */
     public double getMass () {
         return myMass;
     }
-
+    
+    /**
+     * returns this mass's position as a Point2D.Double point
+     * @return Point2D.Double(getX(), getY()) - getX and getY return this mass's
+     * x and y coords.
+     */
     public Point2D getPoint () {
         return new Point2D.Double(getX(), getY());
     }
 
     /**
-     * XXX.
+     * paints this mass
+     * @param pen - Graphics2D pen used to paint.
      */
     @Override
     public void paint (Graphics2D pen) {
@@ -70,19 +85,25 @@ public class Mass extends Sprite {
 
     /**
      * Use the given force to change this mass's acceleration.
+     * @param force - vector force to be applied to this mass.
      */
     public void applyAccelerationVector (Vector force) {
         force.scale(1 / myMass);
-        myAcceleration.sum(force);
+        myVelocity.sum(force);
     }
-
+    
+    /**
+     * Sets the velocity of this mass
+     * @param force force to set velocity to
+     */
     public void setForce (Vector force) {
-        myAcceleration = new Vector(force);
+        myVelocity = new Vector(force);
 
     }
 
     /**
      * Convenience method.
+     * @param other - mass to calculate the distance to
      */
     public double distance (Mass other) {
         // this is a little awkward, so hide it
