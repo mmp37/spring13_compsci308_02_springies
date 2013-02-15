@@ -1,6 +1,7 @@
 package simulation;
 
-import java.util.List;
+import java.awt.event.KeyEvent;
+import java.util.List; 
 import util.Vector;
 import view.Canvas;
 
@@ -51,11 +52,29 @@ public class WallRepulsionForce extends Force {
         myPower = power;
         myMagnitude = mag;
         mySide = side;
+        
         myRepulsionAngle = side * RIGHT_ANGLE;
         
         
     }
     
+    private void setKey(int side) {
+        if (side == 1) {
+            setKeyVal(KeyEvent.VK_1);
+        }
+        
+        else if (side == 2) {
+            setKeyVal(KeyEvent.VK_2);
+        }
+        
+        else if (side == 3) {
+            setKeyVal(KeyEvent.VK_3);
+        }
+        
+        else if (side == 4) {
+            setKeyVal(KeyEvent.VK_4);
+        }
+    }
     
     
     /**
@@ -113,11 +132,7 @@ public class WallRepulsionForce extends Force {
      * @param masses - input masses to apply force to
      */
     @Override
-    public void applyForce (List<Mass> masses) {
-
-        if (!isOn()) {
-            return;
-        }
+    protected void envoke (List<Mass> masses) {
         for (Mass mass : masses) {
             double distance = getDistance(mass);
             Vector force = calculateWallRepulsionForce(distance);

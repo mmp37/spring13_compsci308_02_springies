@@ -14,49 +14,66 @@ public class CanvasListener extends Listener {
      * how much each button press will change the canvas size
      */
     private static final int CANVAS_SIZE_INCREMENT = 10;
-    private Canvas myView;
-    private int myKey;
-    
+  
     /**
      * constructor
      * @param view - canvas
      * @param key - keyevent
      */
     public CanvasListener(Canvas view, int key) {
-        myView = view;
-        myKey = key;
+        super(view, key);
+        System.out.println(key);
     }
 
-    /**
-     * default constructor
-     */
-    public CanvasListener () {
-    }
+   
     
     /**
      * updates the canvas if there was a correct key press from the view.
      */
-    public void update() {
-        if (!myView.getLastKeyHeuristic()) {
+//    public void update() {
+//        if (!tempView.getLastKeyHeuristic()) {
+//            return;
+//        }
+//        tempView.setLastKeyHeuristic(false);
+//
+//        Collection<Integer> keysPressed = tempView.getKeysPressed();
+//
+//        if (!keysPressed.contains(tempKey)) {
+//            return;
+//        }
+//
+//        if (tempKey == KeyEvent.VK_UP) {
+//            tempView.setSize(tempView.getWidth() + CANVAS_SIZE_INCREMENT, 
+//                             tempView.getHeight() + CANVAS_SIZE_INCREMENT);
+//            tempView.step();
+//        }
+//        
+//        else if (tempKey == KeyEvent.VK_DOWN) {
+//            tempView.setBounds(0, 0, tempView.getWidth() - CANVAS_SIZE_INCREMENT, 
+//                             tempView.getHeight() - CANVAS_SIZE_INCREMENT);
+//        }
+//
+//    }
+    
+    
+    @Override
+    protected void enforce(Force f){
+        if (!(f instanceof WallRepulsionForce)){
             return;
         }
-        myView.setLastKeyHeuristic(false);
-
-        Collection<Integer> keysPressed = myView.getKeysPressed();
-
-        if (!keysPressed.contains(myKey)) {
-            return;
-        }
-
-        if (myKey == KeyEvent.VK_UP) {
-            myView.setBounds(0, 0, myView.getWidth() + CANVAS_SIZE_INCREMENT, 
-                             myView.getHeight() + CANVAS_SIZE_INCREMENT);
-        }
+        System.out.println(getKey());
+        int tempKey = getKey();
+        Canvas tempView = getView();
+        if (tempKey == KeyEvent.VK_UP) {
+          tempView.setSize(tempView.getWidth() + CANVAS_SIZE_INCREMENT, 
+                           tempView.getHeight() + CANVAS_SIZE_INCREMENT);
+          tempView.step();
+      }
+      
+      else if (tempKey == KeyEvent.VK_DOWN) {
+          tempView.setBounds(0, 0, tempView.getWidth() - CANVAS_SIZE_INCREMENT, 
+                           tempView.getHeight() - CANVAS_SIZE_INCREMENT);
+      }
         
-        else if (myKey == KeyEvent.VK_DOWN) {
-            myView.setBounds(0, 0, myView.getWidth() - CANVAS_SIZE_INCREMENT, 
-                             myView.getHeight() - CANVAS_SIZE_INCREMENT);
-        }
-
     }
 }

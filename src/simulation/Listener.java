@@ -17,10 +17,10 @@ public class Listener {
     public static final int VISCOSITY_KEY_VAL = KeyEvent.VK_V;
     public static final int NEW_ASSEMBLY_KEY_VAL = KeyEvent.VK_N;
     public static final int CLEAR_ASSEMBLIES = KeyEvent.VK_C;
-    public static final int TOGGLE_WALL_FORCE_RIGHT = KeyEvent.VK_1;
-    public static final int TOGGLE_WALL_FORCE_BOTTOM = KeyEvent.VK_2;
-    public static final int TOGGLE_WALL_FORCE_LEFT = KeyEvent.VK_3;
-    public static final int TOGGLE_WALL_FORCE_TOP = KeyEvent.VK_4;
+    public static final int TOGGLE_WALL_FORCE_RIGHT = KeyEvent.VK_2;
+    public static final int TOGGLE_WALL_FORCE_BOTTOM = KeyEvent.VK_3;
+    public static final int TOGGLE_WALL_FORCE_LEFT = KeyEvent.VK_4;
+    public static final int TOGGLE_WALL_FORCE_TOP = KeyEvent.VK_1;
     public static final int INCREASE_CANVAS_SIZE = KeyEvent.VK_UP;
     public static final int DECREASE_CANVAS_SIZE = KeyEvent.VK_DOWN;
 
@@ -43,6 +43,14 @@ public class Listener {
     public Listener () {
     }
 
+    protected Canvas getView(){
+        return myView;
+    }
+    
+    protected int getKey(){
+        return myKey;
+    }
+    
     /**
      * toggles forces appropriately - depends on current force state(on/off)
      * and key presses.
@@ -62,10 +70,22 @@ public class Listener {
 
         for (Force f : forces) {
 
-            f.toggleState();
+            enforce(f);
 
         }
 
     }
+    
+    protected void enforce(Force f){
+        f.toggleState(myKey);
+    }
 
+/*    private void enforce(Force f, int x){
+        myView.getX()
+        myView.getWidth()
+        if (f instance of wall replusion){
+            f.update all ths stuff
+        }
+    }*/
+    
 }

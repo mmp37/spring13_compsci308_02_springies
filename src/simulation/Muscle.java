@@ -57,7 +57,6 @@ public class Muscle extends Spring {
         // if (myAngle>6.28)
         // myAngle=0;
         // myAngle = (myAngle/360) - Math.floor((myAngle/360));
-        System.out.println(30 * Math.sin(myAngle));
 
         Vector force = new Vector(Vector.angleBetween(dx, dy),
                                   30 * Math.cos(myAngle));

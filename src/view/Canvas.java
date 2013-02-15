@@ -176,7 +176,6 @@ public class Canvas extends JComponent {
                 myLastKeyPressed = e.getKeyCode();
                 myKeys.add(e.getKeyCode());
                 myLastKeyHeuristic = true;
-                System.out.println(e.getKeyCode());
             }
 
             @Override

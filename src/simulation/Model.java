@@ -66,8 +66,8 @@ public class Model {
         myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_TOP));
         myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_BOTTOM));
         myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_LEFT));
-        myCanvasListeners.add(new CanvasListener(myView, Listener.DECREASE_CANVAS_SIZE));
-        myCanvasListeners.add(new CanvasListener(myView, Listener.INCREASE_CANVAS_SIZE));
+        myForceListeners.add(new CanvasListener(myView, Listener.DECREASE_CANVAS_SIZE));
+        myForceListeners.add(new CanvasListener(myView, Listener.INCREASE_CANVAS_SIZE));
         
         
     }
@@ -77,10 +77,10 @@ public class Model {
     public void activateForces() {
         add(new GravityForce());
         add(new ViscosityForce());
-        add(new RightWallRepulsionForce(myView));
-        add(new LeftWallRepulsionForce());
-        add(new TopWallRepulsionForce());
-        add(new BottomWallRepulsionForce(myView));
+        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 1));
+        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 2));
+        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 3));
+        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 4));
     }
 
     /**
@@ -94,9 +94,6 @@ public class Model {
             l.update(myForces);
         }
         
-        for(CanvasListener cl: myCanvasListeners) {
-            cl.update();
-        }
 
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);

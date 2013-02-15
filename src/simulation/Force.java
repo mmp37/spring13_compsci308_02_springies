@@ -36,10 +36,20 @@ public class Force {
     }
     
     /**
+     * set this force's key listener value
+     * @param keyVal - input key value
+     */
+    protected void setKeyVal (int keyVal) {
+        myKeyVal = keyVal;
+    }
+    
+    /**
      * turns this force on if it is off, off if it is on.
      */
-    public void toggleState () {
-        myState = !myState;
+    public void toggleState (int key) {
+        if (key == myKeyVal) {
+            myState = !myState;
+        }
     }
     
     /**
@@ -56,6 +66,14 @@ public class Force {
      * @param masses - input masses
      */
     public void applyForce (List<Mass> masses) {
+        if (!isOn()) {
+            return;
+        }
+        envoke(masses);
+       }
+    
+    protected void envoke(List<Mass> masses){
+       
 
     }
 
