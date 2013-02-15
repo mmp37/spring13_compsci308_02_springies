@@ -37,17 +37,13 @@ public class ViscosityForce extends Force {
         myFactor = in;
     }
 
+    
     @Override
-    public void applyForce (List<Mass> masses) {
-
-        if (!isOn()) {
-            return;
-        }
-
-        for (Mass mass : masses) {
-            Vector velocity = mass.getVelocity();
-            velocity.scale(myFactor);
-        }
+    protected void envoke(List<Mass> masses){
+    	 for (Mass mass : masses) {
+             Vector velocity = mass.getVelocity();
+             velocity.scale(myFactor);
+         }
     }
 
 }

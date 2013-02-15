@@ -176,6 +176,7 @@ public class Canvas extends JComponent {
                 myLastKeyPressed = e.getKeyCode();
                 myKeys.add(e.getKeyCode());
                 myLastKeyHeuristic = true;
+                System.out.println(e.getKeyCode());
             }
 
             @Override
@@ -214,4 +215,13 @@ public class Canvas extends JComponent {
             factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
         }
     }
+    public void loadNewModel () {
+        Factory factory = new Factory(this);
+        int response = INPUT_CHOOSER.showOpenDialog(null);
+        if (response == JFileChooser.APPROVE_OPTION) {
+            factory.loadModel(mySimulation, INPUT_CHOOSER.getSelectedFile());
+        }
+    }
+    
+    
 }

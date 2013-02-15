@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 /**
  * Fixed mass class that does not move
- * @author Aaron Krolik
+ * @author AK
  *
  */
 public class FixedMass extends Mass {

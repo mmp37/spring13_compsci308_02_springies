@@ -138,7 +138,6 @@ public class WallRepulsionForce extends Force {
             Vector force = calculateWallRepulsionForce(distance);
 
             mass.applyAccelerationVector(force);
-
         }
 
     }

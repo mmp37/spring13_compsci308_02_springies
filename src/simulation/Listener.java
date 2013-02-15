@@ -7,7 +7,7 @@ import view.Canvas;
 
 /**
  * class that handles keyListening for the springies model
- * @author Matthew Parides & Aaron Krolik
+ * @author Matthew Parides & Aaron Krolik (AK designed Listener class hierarchy)
  *
  */
 public class Listener {
@@ -67,7 +67,6 @@ public class Listener {
         if (!keysPressed.contains(myKey)) {
             return;
         }
-
         for (Force f : forces) {
 
             enforce(f);
@@ -76,16 +75,14 @@ public class Listener {
 
     }
     
+    
+    /*
+     * default for common toggle forces
+     */
     protected void enforce(Force f){
         f.toggleState(myKey);
     }
 
-/*    private void enforce(Force f, int x){
-        myView.getX()
-        myView.getWidth()
-        if (f instance of wall replusion){
-            f.update all ths stuff
-        }
-    }*/
+
     
 }

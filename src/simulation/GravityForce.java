@@ -34,10 +34,7 @@ public class GravityForce extends Force {
     }
 
     @Override
-    public void applyForce (List<Mass> masses) {
-        if (!isOn()) {
-            return;
-        }
+    protected void envoke (List<Mass> masses) {
         for (Mass mass : masses) {
             mass.applyAccelerationVector(new Vector(myAngle, myMagnitude));
         }

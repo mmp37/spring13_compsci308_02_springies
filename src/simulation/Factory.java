@@ -40,6 +40,7 @@ public class Factory {
      * the model
      */
     public void loadModel (Model model, File modelFile) {
+    	model.initMyMasses();
         try {
             Scanner input = new Scanner(modelFile);
             while (input.hasNext()) {

@@ -25,9 +25,10 @@ public class ClearAssemblyListener extends Listener {
      * @param mod - the model that this listener connects to
      */
     public ClearAssemblyListener (Canvas view, int key, Model mod) {
-        myView = view;
-        myKey = key;
-        myModel = mod;
+    	super(view, key);
+//        myView = view;
+//        myKey = key;
+//        myModel = mod;
     }
     
     /**
