@@ -41,7 +41,7 @@ public class CenterOfMassForce extends Force {
 
     @Override
     protected void envoke (List<Mass> masses) {
-    	
+    
         double centerX = 0;
         double centerY = 0;
         double allMass = 0;

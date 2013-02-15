@@ -44,11 +44,11 @@ public class Model {
     }
 
     /**
-     * 
+     *  
      */
-    public void initMyMasses(){
-    	myMasses.add(new ArrayList<Mass>());
-    	myMassesIndex = myMasses.size()-1;
+    public void initMyMasses() {
+        myMasses.add(new ArrayList<Mass>());
+        myMassesIndex = myMasses.size() - 1;
     }
     
     /**
@@ -60,9 +60,9 @@ public class Model {
             s.paint(pen);
         }
         for (List<Mass> masses : myMasses) {
-        	for (Mass m : masses){
-        		m.paint(pen);
-        	}
+            for (Mass m : masses) {
+                m.paint(pen);
+            }
         }
     }
     
@@ -87,10 +87,14 @@ public class Model {
     public void activateForces() {
         add(new GravityForce());
         add(new ViscosityForce());
-        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 1));
-        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 2));
-        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 3));
-        add(new WallRepulsionForce(0,1,myView.getWidth(), myView.getHeight(), 4));
+        add(new WallRepulsionForce(0, 1, myView.getWidth(), 
+                                   myView.getHeight(), WallRepulsionForce.TOP_WALL));
+        add(new WallRepulsionForce(0, 1, myView.getWidth(), 
+                                   myView.getHeight(), WallRepulsionForce.RIGHT_WALL));
+        add(new WallRepulsionForce(0, 1, myView.getWidth(), 
+                                   myView.getHeight(), WallRepulsionForce.BOTTOM_WALL));
+        add(new WallRepulsionForce(0, 1, myView.getWidth(), 
+                                   myView.getHeight(), WallRepulsionForce.LEFT_WALL));
     }
 
     /**
@@ -117,10 +121,9 @@ public class Model {
         }
         
         for (List<Mass> masses : myMasses) {
-        	for (Mass m : masses){
-        		m.update(elapsedTime, bounds);
-        	}
-        	
+            for (Mass m : masses) {
+                m.update(elapsedTime, bounds);
+            }
         }
         myDrag.update(myMasses, mySprings, myView);
 //        for (Mass m : myMasses) {
@@ -157,7 +160,7 @@ public class Model {
     
     /**
      * sets the masses in this construct
-     * @param myMasses
+     * @param masses - input mass list
      */
     public void setMyMasses (List<Mass> masses) {
       //  this.myMasses.get(myMassesIndex) = masses;
@@ -165,7 +168,7 @@ public class Model {
     
     /**
      * sets the springs in this construct
-     * @param mySprings
+     * @param springs - input spring list
      */
     public void setMySprings (List<Spring> springs) {
         this.mySprings = springs;
@@ -173,9 +176,9 @@ public class Model {
 
     /**
      * sets the muscles in this construct
-     * @param myMuscles
+     * @param muscles - input muscle list
      */
-    public void setMyMuscles (List<Muscle> myMuscles) {
-        this.myMuscles = myMuscles;
+    public void setMyMuscles (List<Muscle> muscles) {
+        this.myMuscles = muscles;
     }
 }

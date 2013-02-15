@@ -11,7 +11,10 @@ import view.Canvas;
  *
  */
 public class Listener {
-    
+    /**
+     * these are the key values for the keystrokes corresponding to 
+     * actions in the program
+     */
     public static final int MASS_KEY_VAL = KeyEvent.VK_M;
     public static final int GRAVITY_KEY_VAL = KeyEvent.VK_G;
     public static final int VISCOSITY_KEY_VAL = KeyEvent.VK_V;
@@ -43,11 +46,19 @@ public class Listener {
     public Listener () {
     }
 
-    protected Canvas getView(){
+    /**
+     * getter for the listener's view
+     * @return myView - canvas view for this listener
+     */
+    protected Canvas getView() {
         return myView;
     }
     
-    protected int getKey(){
+    /**
+     * getter for this instance of listener's key value
+     * @return myKey
+     */
+    protected int getKey() {
         return myKey;
     }
     
@@ -79,7 +90,7 @@ public class Listener {
     /*
      * default for common toggle forces
      */
-    protected void enforce(Force f){
+    protected void enforce(Force f) {
         f.toggleState(myKey);
     }
 

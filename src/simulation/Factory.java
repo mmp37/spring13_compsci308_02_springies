@@ -23,14 +23,18 @@ public class Factory {
     private static final String CENTER_MASS_KEYWORD = "centermass";
     private static final String WALL_REPULSION_KEYWORD = "wall";
     private Canvas myCanvas;
-
+    // mass IDs
+    private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
     
-    public Factory(Canvas canv){
+    /**
+     * Constructor
+     * @param canv - the canvas that this factory will ultimately add objects to
+     */
+    public Factory(Canvas canv) {
         myCanvas = canv;
     }
     
-    // mass IDs
-    private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
+    
 
     /**
      * Reads the input file and loads the model appropriately with masses, springs,
@@ -40,7 +44,7 @@ public class Factory {
      * the model
      */
     public void loadModel (Model model, File modelFile) {
-    	model.initMyMasses();
+        model.initMyMasses();
         try {
             Scanner input = new Scanner(modelFile);
             while (input.hasNext()) {

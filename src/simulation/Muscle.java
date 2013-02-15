@@ -12,6 +12,7 @@ import util.Vector;
  * XXX.
  * 
  * @author Robert C. Duvall
+ * @author AK
  */
 public class Muscle extends Spring {
     // reasonable default values
@@ -53,7 +54,7 @@ public class Muscle extends Spring {
         double dx = myStart.getX() - myEnd.getX();
         double dy = myStart.getY() - myEnd.getY();
         // apply hooke's law to each attached mass
-        myAngle += (elapsedTime) * 6.24;
+        myAngle += elapsedTime * 6.24;
         // if (myAngle>6.28)
         // myAngle=0;
         // myAngle = (myAngle/360) - Math.floor((myAngle/360));
@@ -76,11 +77,15 @@ public class Muscle extends Spring {
      */
     @Override
     protected Color getColor (double diff) {
-        if (Vector.fuzzyEquals(diff, 0))
+        if (Vector.fuzzyEquals(diff, 0)) {
             return Color.BLACK;
-        else if (diff < 0.0)
+        }
+        else if (diff < 0.0) {
             return Color.BLUE;
-        else return Color.RED;
+        }
+        else {
+            return Color.RED;
+        }
     }
 
     // compute center of this spring

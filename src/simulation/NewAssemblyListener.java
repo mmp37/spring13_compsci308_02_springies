@@ -1,8 +1,6 @@
 package simulation;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
 import view.Canvas;
 
 
@@ -15,7 +13,7 @@ import view.Canvas;
 public class NewAssemblyListener extends Listener {
 
     
-    private static final int myKey = Listener.NEW_ASSEMBLY_KEY_VAL;
+    private static final int NEW_ASSEMBLY_KEY = Listener.NEW_ASSEMBLY_KEY_VAL;
 
     
     
@@ -23,24 +21,23 @@ public class NewAssemblyListener extends Listener {
      * constructor
      * @param view - view canvas
      * @param key - key event for this listener
-     * @param mod - the model that this listener connects to
      */
     public NewAssemblyListener (Canvas view, int key) {
-    	super(view, 78);
-       System.out.println("instance");
+        super(view, NEW_ASSEMBLY_KEY);
+        System.out.println("instance");
     }
-    
+
     /**
      * constructor
      */
     public NewAssemblyListener() {
-    	
+    
     }
     
     @Override
-    protected void enforce(Force f){
-    	System.out.println("newassembly");
-    	getView().loadNewModel();
+    protected void enforce(Force f) {
+        System.out.println("newassembly");
+        getView().loadNewModel();
     }
-   
+
 }

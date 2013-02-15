@@ -11,13 +11,15 @@ import util.Vector;
  */
 public class ViscosityForce extends Force {
     private static final int VISCOSITY_KEY_VAL = KeyEvent.VK_V;
-    private double myFactor = .9;
+    private static final double DEFAULT_FACTOR = .9;
+    private double myFactor;
     
     /**
      * default constructor
      */
     public ViscosityForce () {
         super(VISCOSITY_KEY_VAL);
+        myFactor = DEFAULT_FACTOR;
     }
     
     /**
@@ -39,11 +41,11 @@ public class ViscosityForce extends Force {
 
     
     @Override
-    protected void envoke(List<Mass> masses){
-    	 for (Mass mass : masses) {
-             Vector velocity = mass.getVelocity();
-             velocity.scale(myFactor);
-         }
+    protected void envoke(List<Mass> masses) {
+        for (Mass mass : masses) {
+            Vector velocity = mass.getVelocity();
+            velocity.scale(myFactor);
+        }
     }
 
 }

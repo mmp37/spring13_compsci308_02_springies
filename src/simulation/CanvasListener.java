@@ -6,7 +6,7 @@ import view.Canvas;
 
 /**
  * Listener for canvas events
- * @author Matthew Parides
+ * @author Matthew Parides & AK
  *
  */
 public class CanvasListener extends Listener {
@@ -57,23 +57,23 @@ public class CanvasListener extends Listener {
     
     
     @Override
-    protected void enforce(Force f){
-        if (!(f instanceof WallRepulsionForce)){
+    protected void enforce(Force f) {
+        if (!(f instanceof WallRepulsionForce)) {
             return;
         }
         System.out.println(getKey());
         int tempKey = getKey();
         Canvas tempView = getView();
         if (tempKey == KeyEvent.VK_UP) {
-          tempView.setSize(tempView.getWidth() + CANVAS_SIZE_INCREMENT, 
+            tempView.setSize(tempView.getWidth() + CANVAS_SIZE_INCREMENT, 
                            tempView.getHeight() + CANVAS_SIZE_INCREMENT);
-          tempView.step();
-      }
-      
-      else if (tempKey == KeyEvent.VK_DOWN) {
-          tempView.setBounds(0, 0, tempView.getWidth() - CANVAS_SIZE_INCREMENT, 
-                           tempView.getHeight() - CANVAS_SIZE_INCREMENT);
-      }
+            tempView.step();
+        }
+
+        else if (tempKey == KeyEvent.VK_DOWN) {
+            tempView.setBounds(0, 0, tempView.getWidth() - CANVAS_SIZE_INCREMENT, 
+                               tempView.getHeight() - CANVAS_SIZE_INCREMENT);
+        }
         
     }
 }

@@ -3,7 +3,6 @@ package simulation;
 import java.awt.event.KeyEvent;
 import java.util.List; 
 import util.Vector;
-import view.Canvas;
 
 
 /**
@@ -12,13 +11,27 @@ import view.Canvas;
  *
  */
 public class WallRepulsionForce extends Force {
-    private static final int TOP_WALL = 1;
-    private static final int RIGHT_WALL = 2;
-    private static final int BOTTOM_WALL = 3;
-    private static final int LEFT_WALL = 4;
+    /**
+     * top wall value
+     */
+    public static final int TOP_WALL = 1;
+    /**
+     * right wall value
+     */
+    public static final int RIGHT_WALL = 2;
+    /**
+     * bottom wall value
+     */
+    public static final int BOTTOM_WALL = 3;
+    /**
+     * left wall value
+     */
+    public static final int LEFT_WALL = 4;
+    private static final int DEFAULT_MAGNITUDE = 5;
+    private static final int DEFAULT_POWER = 0;
     private static final int RIGHT_ANGLE = 90;
-    private double myPower = 2;
-    private double myMagnitude = 1;
+    private double myPower = DEFAULT_POWER;
+    private double myMagnitude = DEFAULT_MAGNITUDE;
     private double myWidth;
     private double myHeight;
     private int myRepulsionAngle;
@@ -43,8 +56,9 @@ public class WallRepulsionForce extends Force {
      * 
      * @param power - exponent of the force
      * @param mag - magnitude of the force
-     * @param canv - the canvas that this force is applied in
      * @param side - the side of the canvas that this force corresponds to.
+     * @param width - the width of the environment this force is applied in
+     * @param height - the height of the environment this force is applied in
      */
     public WallRepulsionForce (double power, double mag, double width
                                , double height, int side) {
@@ -52,26 +66,31 @@ public class WallRepulsionForce extends Force {
         myPower = power;
         myMagnitude = mag;
         mySide = side;
-        
+        setKey(mySide);
         myRepulsionAngle = side * RIGHT_ANGLE;
         
         
     }
     
+    /**
+     * convenience method for setting they key listener key for instance
+     * of wall repulsion force
+     * @param side - the number of the side this instance corresponds to
+     */
     private void setKey(int side) {
-        if (side == 1) {
+        if (side == TOP_WALL) {
             setKeyVal(KeyEvent.VK_1);
         }
         
-        else if (side == 2) {
+        else if (side == RIGHT_WALL) {
             setKeyVal(KeyEvent.VK_2);
         }
         
-        else if (side == 3) {
+        else if (side == BOTTOM_WALL) {
             setKeyVal(KeyEvent.VK_3);
         }
         
-        else if (side == 4) {
+        else if (side == LEFT_WALL) {
             setKeyVal(KeyEvent.VK_4);
         }
     }
