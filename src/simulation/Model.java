@@ -11,19 +11,20 @@ import view.Canvas;
  * Model class that runs a physics simulation
  * 
  * @author Robert C. Duvall
- * @author Aaron Krolik & Matthew Parides
+ * @author  Matthew Parides
  */
 public class Model {
     // bounds and input for game
     private Canvas myView;
     // simulation state
-    private List<Mass> myMasses;
+    private List<Mass> myMasses2;
+    private List<ArrayList<Mass>> myMasses;
     private List<Spring> mySprings;
-    private List<Muscle> myMuscles;
+    private List<Muscle> myMuscles; //not used
     private List<Force> myForces;
     private Dragging myDrag;
-    private List<Listener> myForceListeners;
-    private List<CanvasListener> myCanvasListeners;
+    private List<Listener> myListeners;
+    private int myMassesIndex = 0;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -31,18 +32,25 @@ public class Model {
      */
     public Model (Canvas canvas) {
         myView = canvas;
-        myMasses = new ArrayList<Mass>();
+        myMasses2 = new ArrayList<Mass>();
+        myMasses = new ArrayList< ArrayList<Mass> >();
+        myMasses.add(new ArrayList<Mass>());
         mySprings = new ArrayList<Spring>();
         myForces = new ArrayList<Force>();
         activateForces();
-        myForceListeners = new ArrayList<Listener>();
-        myCanvasListeners = new ArrayList<CanvasListener>();
+        myListeners = new ArrayList<Listener>();
         activateListeners();
-        
-
         myDrag = new Dragging();
     }
 
+    /**
+     * 
+     */
+    public void initMyMasses(){
+    	myMasses.add(new ArrayList<Mass>());
+    	myMassesIndex = myMasses.size()-1;
+    }
+    
     /**
      * Draw all elements of the simulation.
      * @param pen - Graphics2D pen for painting
@@ -51,25 +59,27 @@ public class Model {
         for (Spring s : mySprings) {
             s.paint(pen);
         }
-        for (Mass m : myMasses) {
-            m.paint(pen);
+        for (List<Mass> masses : myMasses) {
+        	for (Mass m : masses){
+        		m.paint(pen);
+        	}
         }
     }
     
     /**
-     * adds the necessary key listeners to myForceListeners
+     * adds the necessary key listeners to myListeners
      */
     public void activateListeners() {
-        myForceListeners.add(new Listener(myView, Listener.GRAVITY_KEY_VAL));
-        myForceListeners.add(new Listener(myView, Listener.VISCOSITY_KEY_VAL));
-        myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_RIGHT));
-        myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_TOP));
-        myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_BOTTOM));
-        myForceListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_LEFT));
-        myForceListeners.add(new CanvasListener(myView, Listener.DECREASE_CANVAS_SIZE));
-        myForceListeners.add(new CanvasListener(myView, Listener.INCREASE_CANVAS_SIZE));
-        
-        
+        myListeners.add(new Listener(myView, Listener.GRAVITY_KEY_VAL));
+        myListeners.add(new Listener(myView, Listener.VISCOSITY_KEY_VAL));
+        myListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_RIGHT));
+        myListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_TOP));
+        myListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_BOTTOM));
+        myListeners.add(new Listener(myView, Listener.TOGGLE_WALL_FORCE_LEFT));
+        myListeners.add(new CanvasListener(myView, Listener.DECREASE_CANVAS_SIZE));
+        myListeners.add(new CanvasListener(myView, Listener.INCREASE_CANVAS_SIZE));
+        myListeners.add(new NewAssemblyListener(myView, Listener.NEW_ASSEMBLY_KEY_VAL));
+
     }
     /**
      * adds the necessary forces to myForces
@@ -90,7 +100,7 @@ public class Model {
     public void update (double elapsedTime) {
         Dimension bounds = myView.getSize();
 
-        for (Listener l : myForceListeners) {
+        for (Listener l : myListeners) {
             l.update(myForces);
         }
         
@@ -100,13 +110,23 @@ public class Model {
         }
 
         for (Force f : myForces) {
+//        	for (ArrayList<Mass> masses : myMasses){
+//        		f.applyForce(masses);
+//        	}
             f.applyForce(myMasses);
         }
-
-        for (Mass m : myMasses) {
-            m.update(elapsedTime, bounds);
+        
+        for (List<Mass> masses : myMasses) {
+        	for (Mass m : masses){
+        		m.update(elapsedTime, bounds);
+        	}
+        	
         }
         myDrag.update(myMasses, mySprings, myView);
+//        for (Mass m : myMasses) {
+//            m.update(elapsedTime, bounds);
+//        }
+//        myDrag.update(myMasses, mySprings, myView);
 
     }
 
@@ -115,7 +135,8 @@ public class Model {
      * @param mass input mass object
      */
     public void add (Mass mass) {
-        myMasses.add(mass);
+       // myMasses.add(mass);
+        myMasses.get(myMassesIndex).add(mass);
     }
 
     /**
@@ -139,7 +160,7 @@ public class Model {
      * @param myMasses
      */
     public void setMyMasses (List<Mass> masses) {
-        this.myMasses = masses;
+      //  this.myMasses.get(myMassesIndex) = masses;
     }
     
     /**
