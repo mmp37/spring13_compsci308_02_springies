@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Force parent class that provides general functionality to force subclasses
  * 
- * @author Aaron Krolik (AK designed force class hierarchy) 
+ * @author Aaron Krolik
  * 
  */
 public class Force {

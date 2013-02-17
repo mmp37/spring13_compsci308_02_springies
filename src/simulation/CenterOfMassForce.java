@@ -9,7 +9,7 @@ import util.Vector;
 /**
  * CenterOfMassForce class contains methods for construction and calculating
  *  and applying a center of mass force to masses.
- * @author Aaron Krolik
+ * @author Matthew Parides & Aaron Krolik
  *
  */
 public class CenterOfMassForce extends Force {
